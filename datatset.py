@@ -21,7 +21,7 @@ def load_images(root_path: str):
 
 
 class SuperResolutionDataset(Dataset):
-    def __init__(self, root, transforms = None, resize: int = 4):
+    def __init__(self, root, transforms=None, resize: int = 4):
         self.resize = resize
         self.files = load_images(root)
         self.transforms = transforms or ToTensor()
@@ -29,7 +29,7 @@ class SuperResolutionDataset(Dataset):
     def __getitem__(self, index):
         img = Image.open(self.files[index % len(self.files)])
         img_hr = self.transforms(img)
-        size = [img.size(0) // self.resize, img.size(1) // self.resize]
+        size = [img_hr.size(0) // self.resize, img_hr.size(1) // self.resize]
         img_lr = resize(img, size, interpolation=Image.BICUBIC)
 
         return img_lr, img_hr
