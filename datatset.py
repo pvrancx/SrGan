@@ -1,7 +1,7 @@
 import os
 
 from PIL import Image
-from torch.utils.data import Dataset
+from torchvision.datasets import VisionDataset
 from torchvision.datasets.folder import is_image_file
 from torchvision.transforms import ToTensor
 from torchvision.transforms.functional import resize
@@ -20,8 +20,9 @@ def load_images(root_path: str):
     return images
 
 
-class SuperResolutionDataset(Dataset):
+class SuperResolutionDataset(VisionDataset):
     def __init__(self, root, transforms=None, resize: int = 4):
+        super().__init__(root, transforms=transforms)
         self.resize = resize
         self.files = load_images(root)
         self.transforms = transforms or ToTensor()
