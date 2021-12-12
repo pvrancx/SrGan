@@ -30,7 +30,7 @@ class SuperResolutionDataset(Dataset):
         img = Image.open(self.files[index % len(self.files)])
         img_hr = self.transforms(img)
         size = [img_hr.size(1) // self.resize, img_hr.size(2) // self.resize]
-        img_lr = resize(img, size, interpolation=Image.BICUBIC)
+        img_lr = resize(img_hr, size, interpolation=Image.BICUBIC)
 
         return img_lr, img_hr
 
