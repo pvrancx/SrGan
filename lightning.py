@@ -19,7 +19,7 @@ from generator import Generator
 class SuperResolutionDataModule(pl.LightningDataModule):
     def __init__(self,
                  root: str,
-                 target_size: Tuple[int, int] = (1600, 1080),
+                 target_size: Tuple[int, int] = (1080, 1600),
                  batch_size: int = 64,
                  num_workers: int = 16
                  ):
@@ -101,7 +101,7 @@ class SuperResolutionGan(pl.LightningModule):
             loss_weight: float = 10e-3
     ) -> None:
         super().__init__()
-        self.save_hyperparameters(lr, b1, b2, loss_weight)
+        self.save_hyperparameters()
         self.generator = Generator()
         self.discriminator = Discriminator(img_shape)
         # vgg features before last maxpool
