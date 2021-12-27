@@ -44,4 +44,4 @@ class Discriminator(nn.Module):
 
 
 if __name__ == '__main__':
-    print(Discriminator((224, 224))(torch.randn(1,3,224,224)).shape)
+    print(Discriminator((224, 224))(torch.randn(1, 3, 224, 224)).shape)

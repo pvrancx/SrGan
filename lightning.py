@@ -17,7 +17,12 @@ from generator import Generator
 
 
 class SuperResolutionDataModule(pl.LightningDataModule):
-    def __init__(self, root: str, batch_size: int = 64, num_workers: int = 16):
+    def __init__(self,
+                 root: str,
+                 target_size: Tuple[int, int] = (1600, 1080),
+                 batch_size: int = 64,
+                 num_workers: int = 16
+                 ):
         """
         Create datamodule for Super Resolution training
         :param root: dataset root directory
@@ -32,16 +37,14 @@ class SuperResolutionDataModule(pl.LightningDataModule):
 
         self.train_transform = transforms.Compose(
             [
-                transforms.Resize(size=(180, 432)),
-                transforms.RandomCrop(size=(160, 384)),
+                transforms.RandomCrop(size=target_size),
                 transforms.ToTensor()
             ]
         )
 
         self.test_transform = transforms.Compose(
             [
-                transforms.Resize(size=(180, 432)),
-                transforms.CenterCrop(size=(160, 384)),
+                transforms.CenterCrop(size=target_size),
                 transforms.ToTensor()
             ]
         )
